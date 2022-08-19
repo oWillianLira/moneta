@@ -11,7 +11,7 @@ form {
 }
 
 .currency {
-  width: 500px;
+  width: 600px;
   max-width: 100%;
   margin: 0 auto;
 
@@ -20,11 +20,17 @@ form {
   justify-content: space-evenly;
 }
 
+.currency .select,
+.insert {
+  min-width: 225px;
+}
+
 h4 {
   border-bottom: double 3px;
   margin-top: 25px;
   min-width: 125px;
   padding: 5px;
   font-size: 1.5em;
-  text-align: right;
+  display: flex;
+  justify-content: space-evenly;
 }

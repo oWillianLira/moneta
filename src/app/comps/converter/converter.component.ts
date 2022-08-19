@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, Input } from '@angular/core';
+import { ApiService } from '../../api.service';
 
-interface Food {
+interface Currency {
+  name: string;
   value: string;
-  viewValue: string;
 }
 
 @Component({
@@ -10,17 +11,28 @@ interface Food {
   templateUrl: './converter.component.html',
   styleUrls: ['./converter.component.css'],
 })
-export class ConverterComponent implements OnInit {
-  value: Number = 0;
+export class ConverterComponent implements OnChanges {
+  @Input() amount: number = 1;
 
-  foods: Food[] = [
-    { value: 'steak-0', viewValue: 'Steak' },
-    { value: 'pizza-1', viewValue: 'Pizza' },
-    { value: 'tacos-2', viewValue: 'Tacos' },
+  currency: Currency[] = [
+    { value: 'BRL', name: 'Brazilian Real' },
+    { value: 'CAD', name: 'Canadian Dollar' },
+    { value: 'EUR', name: 'European Euro' },
+    { value: 'JPY', name: 'Japanese Yen' },
+    { value: 'RUB', name: 'Russian Rouble' },
+    { value: 'KRW', name: 'South Korean Won' },
+    { value: 'USD', name: 'United States Dollar' },
   ];
-  initial = this.foods[1].value;
+  @Input() from = this.currency[0].value;
+  @Input() to = this.currency[1].value;
 
-  constructor() {}
+  result: any;
 
-  ngOnInit(): void {}
+  constructor(private apiService: ApiService) {}
+
+  ngOnChanges() {
+    this.apiService.live(this.from, this.to, this.amount).subscribe((data) => {
+      this.result = data;
+    });
+  }
 }

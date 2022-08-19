@@ -1,44 +1,49 @@
 <main>
   <form>
-    <mat-form-field appearance="fill">
-      <mat-label>Value</mat-label>
+    <mat-form-field class="insert" appearance="fill">
+      <mat-label>Amount</mat-label>
       <input
         matInput
         autocomplete="disabled"
-        [(ngModel)]="value"
-        value="{{ value }}"
-        name="value"
+        [(ngModel)]="amount"
+        (ngModelChange)="ngOnChanges()"
+        value="{{ amount }}"
+        name="amount"
       />
       <button
-        *ngIf="value"
+        *ngIf="amount"
         matSuffix
         mat-icon-button
         type="button"
         aria-label="Clear"
-        (click)="value = 0"
+        (click)="amount = 0 + (result = 0)"
       >
         <mat-icon>close</mat-icon>
       </button>
     </mat-form-field>
     <div class="currency">
-      <mat-form-field appearance="fill">
+      <mat-form-field class="select" appearance="fill">
         <mat-label>From</mat-label>
-        <mat-select [(value)]="initial" name="from">
-          <mat-option [value]="option.value" *ngFor="let option of foods">{{
-            option.viewValue
+        <mat-select
+          [(ngModel)]="from"
+          (ngModelChange)="ngOnChanges()"
+          name="from"
+        >
+          <mat-option [value]="option.value" *ngFor="let option of currency">{{
+            option.value + " - " + option.name
           }}</mat-option>
         </mat-select>
       </mat-form-field>
 
-      <mat-form-field appearance="fill">
+      <mat-form-field class="select" appearance="fill">
         <mat-label>To</mat-label>
-        <mat-select [(value)]="initial" name="to">
-          <mat-option [value]="option.value" *ngFor="let option of foods">{{
-            option.viewValue
+        <mat-select [(ngModel)]="to" (ngModelChange)="ngOnChanges()" name="to">
+          <mat-option [value]="option.value" *ngFor="let option of currency">{{
+            option.value + " - " + option.name
           }}</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
   </form>
-  <h4>{{ value }}</h4>
+  <h4 *ngIf="result && amount">{{ result.result }}</h4>
 </main>

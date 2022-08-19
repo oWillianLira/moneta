@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 
@@ -16,6 +17,7 @@ import { ConverterComponent } from './comps/converter/converter.component';
 @NgModule({
   declarations: [AppComponent, ContainerComponent, ConverterComponent],
   imports: [
+    HttpClientModule,
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
